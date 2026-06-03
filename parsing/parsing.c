@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 18:06:13 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/03 18:08:44 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/03 18:30:58 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ t_config	*parsing(char **av)
 	else if (strcmp(av[8], "edf") == 0)
 		node->scheduler = 1;
 	else
+	{
+		free(node);
 		ft_errorr();
+	}
 	return (node);
 }
