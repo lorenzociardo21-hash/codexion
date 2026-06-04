@@ -6,7 +6,7 @@
 #    By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/03 18:32:53 by lciardo           #+#    #+#              #
-#    Updated: 2026/06/03 18:32:58 by lciardo          ###   ########.fr        #
+#    Updated: 2026/06/04 11:10:49 by lciardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		=	codexion
 # Compilatore e Flag
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -I.
-
+PTHREAD		=	-pthread
 # Sorgenti divisi per cartella per chiarezza
 SRC_MAIN	=	main.c
 SRC_PARSING	=	parsing/parsing.c
@@ -30,7 +30,7 @@ OBJS		=	$(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(PTHREAD) -o $(NAME)
 
 # Pulizia oggetti
 clean:

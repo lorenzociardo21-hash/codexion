@@ -6,11 +6,32 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 18:06:13 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/03 18:30:58 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/04 16:53:04 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+static pthread_mutex_t	*createdongles(int num, t_config *node)
+{
+	(void) node;
+	pthread_mutex_t	*dongles;
+	int				i;
+	
+	dongles = malloc(sizeof(pthread_mutex_t) * num);
+	if (!dongles)
+	{
+		free(node);
+		ft_errorr();
+	}
+	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_init(&dongles[i], NULL);
+		i++;
+	}
+	return dongles;
+}
 
 void	ft_errorr(void)
 {
@@ -43,7 +64,7 @@ static void	parsnumber(char **av)
 
 t_config	*parsing(char **av)
 {
-	t_config	*node;
+	t_config		*node;
 
 	parsnumber(av);
 	node = malloc (sizeof(t_config));
@@ -65,5 +86,6 @@ t_config	*parsing(char **av)
 		free(node);
 		ft_errorr();
 	}
+	node->dongles = createdongles(atoi(av[1]), node);
 	return (node);
 }

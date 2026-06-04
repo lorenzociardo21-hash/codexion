@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:01:40 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/03 18:09:00 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/04 18:15:13 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,29 @@
 # include <string.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <pthread.h>
 
 typedef struct s_node
 {
-	int	number_of_coders;
-	int	time_to_burnout;
-	int	time_to_compile;
-	int	time_to_debug;
-	int	time_to_refactor;
-	int	number_of_compiles_required;
-	int	dongle_cooldown;
-	int	scheduler;
+	int				number_of_coders;
+	int				time_to_burnout;
+	int				time_to_compile;
+	int				time_to_debug;
+	int				time_to_refactor;
+	int				number_of_compiles_required;
+	int				dongle_cooldown;
+	int				scheduler;
+	pthread_mutex_t	*dongles;
 }	t_config;
+
+typedef struct s_coder
+{
+	int				id;
+	pthread_t		thread_id;
+	t_config		*config;
+	pthread_mutex_t	*left_dongle;
+	pthread_mutex_t	*right_dongle;
+}	t_coder;
 
 void		ft_errorr(void);
 t_config	*parsing(char **av);
