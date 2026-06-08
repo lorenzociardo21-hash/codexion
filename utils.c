@@ -1,9 +1,52 @@
 #include "codexion.h"
 
-void	ft_errorr(void)
+void	ft_cleanup(t_config *config, t_coder *coders)
 {
+	int	i;
+
+	if (config)
+	{
+		if (config->dongles)
+		{
+			i = 0;
+			while (i < config->number_of_coders)
+			{
+				pthread_mutex_destroy(&config->dongles[i].lock);
+				i++;
+			}
+			free(config->dongles);
+		}
+		pthread_mutex_destroy(&config->log_mutex);
+		pthread_mutex_destroy(&config->stop_mutex);
+		free(config);
+	}
+	if (coders)
+		free(coders);
+}
+
+void	ft_errorr(t_config *config, t_coder *coders)
+{
+	ft_cleanup(config, coders);
 	write(2, "Error\n", 6);
 	exit(1);
+}
+
+void	ft_usleep(size_t milliseconds, t_coder *coder)
+{
+	size_t	start;
+
+	start = get_time();
+	while ((get_time() - start) < milliseconds)
+	{
+		pthread_mutex_lock(&coder->config->stop_mutex);
+		if (coder->config->stop_sim == 1)
+		{
+			pthread_mutex_unlock(&coder->config->stop_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&coder->config->stop_mutex);
+		usleep(500);
+	}
 }
 
 size_t	get_time(void)

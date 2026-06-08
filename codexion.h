@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:01:40 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/05 18:00:16 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/08 19:09:39 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef struct s_dongles
+{
+	pthread_mutex_t	lock;
+	size_t			last_release_time;
+	int				flag;
+	pthread_cond_t	wait_list;
+	struct s_queue	*queue;
+}	t_dongles;
+
+typedef struct s_queue
+{
+	size_t			time;
+	int				id_order;
+	struct s_queue	*next;
+}	t_queue;
+
+
 typedef struct s_node
 {
 	int				number_of_coders;
@@ -30,9 +47,9 @@ typedef struct s_node
 	int				time_to_debug;
 	int				time_to_refactor;
 	int				number_of_compiles_required;
-	int				dongle_cooldown;
+	size_t			dongle_cooldown;
 	int				scheduler;
-	pthread_mutex_t	*dongles;
+	t_dongles		*dongles;
 	size_t			start_time;
 	pthread_mutex_t	log_mutex;
 	int				stop_sim;
@@ -45,21 +62,27 @@ typedef struct s_coder
 	int				id;
 	pthread_t		thread_id;
 	t_config		*config;
-	pthread_mutex_t	*left_dongle;
-	pthread_mutex_t	*right_dongle;
+	t_dongles		*left_dongle;
+	t_dongles		*right_dongle;
 	size_t			last_compile_start;
+	int				n_compile;
 }	t_coder;
+
+
 
 /* utils.c */
 size_t		get_time(void);
-void		ft_errorr(void);
+void		ft_cleanup(t_config *config, t_coder *coders);
+void		ft_errorr(t_config *config, t_coder *coders);
 void		print_action(t_coder *coder, char *action);
+void		ft_usleep(size_t milliseconds, t_coder *coder);
 
 /* parsing.c */
 t_config	*parsing(char **av);
 
 /* init.c */
 t_coder		*codercreate(t_config *config);
+void		docodexion(t_coder *coders);
 
 /* routine.c */
 void		*routine(void *arg);
@@ -67,7 +90,6 @@ void		*routine(void *arg);
 /* controller.c */
 void		controller(t_coder *coder);
 
-/* main.c */
-void		docodexion(t_coder *coders);
+
 
 #endif
