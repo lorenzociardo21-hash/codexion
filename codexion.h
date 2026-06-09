@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:01:40 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/08 19:09:39 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/09 15:49:41 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,8 @@ typedef struct s_dongles
 	pthread_mutex_t	lock;
 	size_t			last_release_time;
 	int				flag;
-	pthread_cond_t	wait_list;
-	struct s_queue	*queue;
 }	t_dongles;
 
-typedef struct s_queue
-{
-	size_t			time;
-	int				id_order;
-	struct s_queue	*next;
-}	t_queue;
 
 
 typedef struct s_node

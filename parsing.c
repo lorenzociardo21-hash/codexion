@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:25 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/08 19:25:15 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/09 15:48:48 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ static t_dongles	*createdongles(int num, t_config *node)
 	i = 0;
 	while (i < num)
 	{
-		dongles[i].queue = NULL;
-		dongles[i].queue->id_order = 0;
 		dongles[i].flag = 0;
 		dongles[i].last_release_time = 0;
 		pthread_mutex_init(&dongles[i].lock, NULL);
-		pthread_cond_init(&dongles[i].wait_list, NULL);
 		i++;
 	}
 	return (dongles);
