@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:01:40 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/09 15:49:41 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 13:28:36 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,19 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef struct s_request
+{
+	int		coder_id;
+	size_t	priority;
+}	t_request;
+
 typedef struct s_dongles
 {
 	pthread_mutex_t	lock;
 	size_t			last_release_time;
 	int				flag;
+	t_request		queue[2];
 }	t_dongles;
-
-
 
 typedef struct s_node
 {
@@ -63,6 +68,7 @@ typedef struct s_coder
 
 
 /* utils.c */
+int			stop_simu(t_coder *coder);
 size_t		get_time(void);
 void		ft_cleanup(t_config *config, t_coder *coders);
 void		ft_errorr(t_config *config, t_coder *coders);
@@ -82,6 +88,8 @@ void		*routine(void *arg);
 /* controller.c */
 void		controller(t_coder *coder);
 
-
+/* scheduler.c */
+void	release_dongle(t_coder *coder, t_dongles *dongle);
+void	take_dongle(t_coder *coder, t_dongles *dongle);
 
 #endif

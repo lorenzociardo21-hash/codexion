@@ -6,7 +6,7 @@
 #    By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/03 18:32:53 by lciardo           #+#    #+#              #
-#    Updated: 2026/06/05 18:19:54 by lciardo          ###   ########.fr        #
+#    Updated: 2026/06/10 13:29:47 by lciardo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS		= main.c \
 			  init.c \
 			  routine.c \
 			  controller.c \
-			  utils.c
+			  utils.c \
+			  scheduler.c
 
 OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

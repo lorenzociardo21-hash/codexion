@@ -64,13 +64,8 @@ void	print_action(t_coder *coder, char *action)
 	size_t	time;
 
 	time = get_time() - coder->config->start_time;
-	pthread_mutex_lock(&coder->config->stop_mutex);
-	if (coder->config->stop_sim == 1)
-	{
-		pthread_mutex_unlock(&coder->config->stop_mutex);
+	if (stop_simu(coder) == 1)
 		return ;
-	}
-	pthread_mutex_unlock(&coder->config->stop_mutex);
 	pthread_mutex_lock(&coder->config->log_mutex);
 	printf("%zu %d %s\n", time, coder->id, action);
 	pthread_mutex_unlock(&coder->config->log_mutex);
