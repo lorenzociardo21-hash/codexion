@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:08 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 13:19:32 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 18:58:42 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	stop_simu(t_coder *coder)
 	return (f);
 }
 
-
 static void	priority_queue(t_coder *coder, t_dongles *dongle, int my_idx)
 {
 	int	riv_idx;
@@ -38,7 +37,8 @@ static void	priority_queue(t_coder *coder, t_dongles *dongle, int my_idx)
 		if (dongle->flag == 0)
 		{
 			if (dongle->queue[my_idx].priority < dongle->queue[riv_idx].priority
-				|| (dongle->queue[my_idx].priority == dongle->queue[riv_idx].priority
+				|| (dongle->queue[my_idx].priority == \
+					dongle->queue[riv_idx].priority
 					&& coder->id < dongle->queue[riv_idx].coder_id))
 			{
 				dongle->flag = 1;
@@ -50,7 +50,6 @@ static void	priority_queue(t_coder *coder, t_dongles *dongle, int my_idx)
 		usleep(100);
 	}
 }
-
 
 void	take_dongle(t_coder *coder, t_dongles *dongle)
 {
@@ -71,7 +70,7 @@ void	take_dongle(t_coder *coder, t_dongles *dongle)
 	priority_queue(coder, dongle, my_idx);
 }
 
-void	release_dongle(t_coder	*coder, t_dongles	*dongle)
+void	release_dongle(t_coder *coder, t_dongles *dongle)
 {
 	int	my_idx;
 

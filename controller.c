@@ -6,13 +6,13 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:39 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/08 17:12:03 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 19:24:57 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static int	controlncompile(t_coder	*coder)
+static int	controlncompile(t_coder *coder)
 {
 	int		i;
 	int		f;
@@ -24,10 +24,9 @@ static int	controlncompile(t_coder	*coder)
 	while (i < coder->config->number_of_coders)
 	{
 		pthread_mutex_lock(&coder->config->stop_mutex);
-		if (coder[i].n_compile >=  coder->config->number_of_compiles_required)
-		{
+		if (coder[i].n_compile >= \
+			coder->config->number_of_compiles_required)
 			ncompile += 1;
-		}
 		pthread_mutex_unlock(&coder->config->stop_mutex);
 		i++;
 	}
@@ -40,7 +39,8 @@ static int	controlncompile(t_coder	*coder)
 	}
 	return (f);
 }
-static int	controlburnout(t_coder	*coder)
+
+static int	controlburnout(t_coder *coder)
 {
 	int		i;
 	int		f;
@@ -90,7 +90,8 @@ void	controller(t_coder *coder)
 {
 	int	i;
 
-	if (pthread_create(&coder[0].config->controller, NULL, &controlcoders, coder) != 0)
+	if (pthread_create(&coder[0].config->controller, \
+		NULL, &controlcoders, coder) != 0)
 	{
 		pthread_mutex_lock(&coder[0].config->stop_mutex);
 		coder[0].config->stop_sim = 1;

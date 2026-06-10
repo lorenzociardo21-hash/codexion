@@ -6,12 +6,11 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:30 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/08 17:05:31 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 19:10:21 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
 
 int	main(int argc, char *argv[])
 {

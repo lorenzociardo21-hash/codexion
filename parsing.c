@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:25 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 12:18:07 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 19:09:55 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_dongles	*createdongles(int num, t_config *node)
 {
-	t_dongles	*dongles;
+	t_dongles		*dongles;
 	int				i;
 
 	(void)node;
@@ -62,20 +62,8 @@ static void	parsnumber(char **av)
 	}
 }
 
-t_config	*parsing(char **av)
+static t_config	*parsingg(t_config *node, char **av)
 {
-	t_config	*node;
-
-	parsnumber(av);
-	node = malloc(sizeof(t_config));
-	if (!node)
-		ft_errorr(NULL, NULL);
-	node->number_of_coders = atoi(av[1]);
-	node->time_to_burnout = (size_t)atoi(av[2]);
-	node->time_to_compile = atoi(av[3]);
-	node->time_to_debug = atoi(av[4]);
-	node->time_to_refactor = atoi(av[5]);
-	node->number_of_compiles_required = atoi(av[6]);
 	node->dongle_cooldown = (size_t)atoi(av[7]);
 	if (strcmp(av[8], "fifo") == 0)
 		node->scheduler = 0;
@@ -92,4 +80,21 @@ t_config	*parsing(char **av)
 	pthread_mutex_init(&node->log_mutex, NULL);
 	pthread_mutex_init(&node->stop_mutex, NULL);
 	return (node);
+}
+
+t_config	*parsing(char **av)
+{
+	t_config	*node;
+
+	parsnumber(av);
+	node = malloc(sizeof(t_config));
+	if (!node)
+		ft_errorr(NULL, NULL);
+	node->number_of_coders = atoi(av[1]);
+	node->time_to_burnout = (size_t)atoi(av[2]);
+	node->time_to_compile = atoi(av[3]);
+	node->time_to_debug = atoi(av[4]);
+	node->time_to_refactor = atoi(av[5]);
+	node->number_of_compiles_required = atoi(av[6]);
+	return (parsingg(node, av));
 }

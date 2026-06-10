@@ -6,36 +6,42 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:34 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 16:43:07 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 19:22:02 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
+void	docodexionxx(t_coder *coders, int i)
+{
+	int	j;
+
+	coders[i].last_compile_start = get_time();
+	if (pthread_create(&coders[i].thread_id, NULL, &routine, &coders[i]) != 0)
+	{
+		pthread_mutex_lock(&coders[0].config->stop_mutex);
+		coders[0].config->stop_sim = 1;
+		pthread_mutex_unlock(&coders[0].config->stop_mutex);
+		j = 0;
+		while (j < i)
+		{
+			pthread_join(coders[j].thread_id, NULL);
+			j++;
+		}
+		ft_errorr(coders[0].config, coders);
+	}
+}
+
 void	docodexion(t_coder *coders)
 {
 	int	numcode;
 	int	i;
-	int	j;
 
 	numcode = coders[0].config->number_of_coders;
 	i = 0;
 	while (i < numcode)
 	{
-		coders[i].last_compile_start = get_time();
-		if (pthread_create(&coders[i].thread_id, NULL, &routine, &coders[i]) != 0)
-		{
-			pthread_mutex_lock(&coders[0].config->stop_mutex);
-			coders[0].config->stop_sim = 1;
-			pthread_mutex_unlock(&coders[0].config->stop_mutex);
-			j = 0;
-			while (j < i)
-			{
-				pthread_join(coders[j].thread_id, NULL);
-				j++;
-			}
-			ft_errorr(coders[0].config, coders);
-		}
+		docodexionxx(coders, i);
 		i++;
 	}
 	i = 0;

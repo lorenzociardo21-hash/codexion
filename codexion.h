@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:01:40 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 13:28:36 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/10 19:25:34 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,18 @@ typedef struct s_coder
 	int				n_compile;
 }	t_coder;
 
-
-
-/* utils.c */
 int			stop_simu(t_coder *coder);
 size_t		get_time(void);
 void		ft_cleanup(t_config *config, t_coder *coders);
 void		ft_errorr(t_config *config, t_coder *coders);
 void		print_action(t_coder *coder, char *action);
 void		ft_usleep(size_t milliseconds, t_coder *coder);
-
-/* parsing.c */
 t_config	*parsing(char **av);
-
-/* init.c */
 t_coder		*codercreate(t_config *config);
 void		docodexion(t_coder *coders);
-
-/* routine.c */
 void		*routine(void *arg);
-
-/* controller.c */
 void		controller(t_coder *coder);
-
-/* scheduler.c */
-void	release_dongle(t_coder *coder, t_dongles *dongle);
-void	take_dongle(t_coder *coder, t_dongles *dongle);
+void		release_dongle(t_coder *coder, t_dongles *dongle);
+void		take_dongle(t_coder *coder, t_dongles *dongle);
 
 #endif
