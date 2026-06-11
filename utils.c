@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:31:57 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 18:53:41 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/11 14:23:28 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ void	print_action(t_coder *coder, char *action)
 	if (stop_simu(coder) == 1)
 		return ;
 	pthread_mutex_lock(&coder->config->log_mutex);
-	if (strcmp(action, "is compiling") == 0)
-		printf("\033[31m%zu %d %s\033[0m\n", time, coder->id, action);
-	else
-		printf("%zu %d %s\n", time, coder->id, action);
+	printf("%zu %d %s\n", time, coder->id, action);
 	pthread_mutex_unlock(&coder->config->log_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:32:08 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 19:02:50 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/11 14:18:20 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static void	routinee(t_coder *coder)
 	while (1)
 	{
 		if (coder->id % 2 != 0)
-			usleep(50);
+			usleep(1500);
 		if (stop_simu(coder) == 1)
 			break ;
 		grab_dongles(coder);
