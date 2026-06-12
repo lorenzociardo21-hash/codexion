@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:25 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 19:09:55 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/11 16:52:26 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,20 @@ t_config	*parsing(char **av)
 	if (!node)
 		ft_errorr(NULL, NULL);
 	node->number_of_coders = atoi(av[1]);
+	if (node->number_of_coders == 0)
+	{
+		free(node);
+		ft_errorr(NULL, NULL);
+	}
 	node->time_to_burnout = (size_t)atoi(av[2]);
 	node->time_to_compile = atoi(av[3]);
 	node->time_to_debug = atoi(av[4]);
 	node->time_to_refactor = atoi(av[5]);
 	node->number_of_compiles_required = atoi(av[6]);
+	if (node->number_of_compiles_required == 0)
+	{
+		free(node);
+		exit(1);
+	}
 	return (parsingg(node, av));
 }

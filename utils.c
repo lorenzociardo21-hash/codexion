@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 18:31:57 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/11 14:23:28 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/12 12:42:37 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ void	print_action(t_coder *coder, char *action)
 {
 	size_t	time;
 
+	if (strcmp(action, "burned out") != 0)
+		usleep(500);
 	time = get_time() - coder->config->start_time;
-	if (stop_simu(coder) == 1)
-		return ;
+	if (strcmp(action, "burned out") != 0 && stop_simu(coder) == 1)
+    return ;
 	pthread_mutex_lock(&coder->config->log_mutex);
 	printf("%zu %d %s\n", time, coder->id, action);
 	pthread_mutex_unlock(&coder->config->log_mutex);
