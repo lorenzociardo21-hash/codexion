@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:01:40 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/10 19:25:34 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/15 11:48:47 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ void		docodexion(t_coder *coders);
 void		*routine(void *arg);
 void		controller(t_coder *coder);
 void		release_dongle(t_coder *coder, t_dongles *dongle);
-void		take_dongle(t_coder *coder, t_dongles *dongle);
+void		take_both_dongles(t_coder *coder);
 
 #endif
