@@ -6,7 +6,7 @@
 /*   By: lciardo <lciardo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 17:05:25 by lciardo           #+#    #+#             */
-/*   Updated: 2026/06/11 16:52:26 by lciardo          ###   ########.fr       */
+/*   Updated: 2026/06/15 12:19:06 by lciardo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ static t_config	*parsingg(t_config *node, char **av)
 	node->dongles = createdongles(atoi(av[1]), node);
 	node->start_time = get_time();
 	node->stop_sim = 0;
+	if (node->number_of_compiles_required == 0)
+	{
+		free(node);
+		exit(1);
+	}
 	pthread_mutex_init(&node->log_mutex, NULL);
 	pthread_mutex_init(&node->stop_mutex, NULL);
 	return (node);
@@ -101,10 +106,5 @@ t_config	*parsing(char **av)
 	node->time_to_debug = atoi(av[4]);
 	node->time_to_refactor = atoi(av[5]);
 	node->number_of_compiles_required = atoi(av[6]);
-	if (node->number_of_compiles_required == 0)
-	{
-		free(node);
-		exit(1);
-	}
 	return (parsingg(node, av));
 }
